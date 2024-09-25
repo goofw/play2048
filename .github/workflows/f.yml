@@ -1,0 +1,25 @@
+name: f
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 23 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+    
+jobs:
+  f:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      
+      - run: |
+          date > VERSION
+
+          git config user.name $(git log -1 --pretty=format:'%an')
+          git config user.email $(git log -1 --pretty=format:'%ae')
+          git add .
+          git diff-index --quiet HEAD || git commit -m "update"
+          git push
