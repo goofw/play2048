@@ -2,8 +2,8 @@ name: f
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 23 * * *'
+  #schedule:
+  #  - cron: '0 23 * * *'
 
 concurrency:
   group: ${{ github.workflow }}
